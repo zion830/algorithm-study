@@ -1,21 +1,18 @@
 import java.util.*
 import kotlin.math.ceil
 
-class Solution2 {
+class Solution {
     fun solution(progresses: IntArray, speeds: IntArray): IntArray {
         val answer = arrayListOf<Int>()
+        val leftDay = progresses.mapIndexed { index, i -> ceil((100.0 - i) / speeds[index]) }
 
         var startIdx = 0
 
-        while (startIdx < progresses.size) {
+        while (startIdx < leftDay.size) {
             var count = 0
 
-            for (i in startIdx until progresses.size) {
-                progresses[i] = progresses[i] + speeds[i]
-            }
-
-            for (i in startIdx until progresses.size) {
-                if (progresses[i] >= 100) {
+            for (i in startIdx until leftDay.size) {
+                if (leftDay[i] - leftDay[startIdx] <= 0) {
                     count++
                 } else {
                     break
